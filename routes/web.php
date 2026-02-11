@@ -57,6 +57,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // Verifikasi/Approve User
     Route::get('/users', [UserController::class, 'index'])->name('admin.users');
     Route::post('/users/{id}/approve', [UserController::class, 'approve'])->name('admin.users.approve');
+    Route::get('/users-json', [UserController::class, 'getUsersJson'])->name('admin.users.json');
 
     // CRUD Kandidat
     Route::resource('/candidates', CandidateController::class);

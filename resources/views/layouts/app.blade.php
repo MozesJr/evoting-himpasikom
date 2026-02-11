@@ -8,34 +8,45 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet">
 
-
-    <!-- Scripts -->
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <script src="{{ mix('js/app.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a;
+        }
 
+        .glass-nav {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+<body class="antialiased text-gray-200">
+    <div class="min-h-screen">
         @include('layouts.navigation')
 
-        <!-- Page Heading -->
-        <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                {{ $header ?? '' }}
-            </div>
-        </header>
+        @if (isset($header))
+            <header class="bg-[#1e293b]/50 border-b border-white/5">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="text-2xl font-bold text-white tracking-tight">
+                        {{ $header }}
+                    </div>
+                </div>
+            </header>
+        @endif
 
-        <!-- Page Content -->
-        <main>
-            {{ $slot ?? '' }}
+        <main class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                {{ $slot }}
+            </div>
         </main>
     </div>
 </body>

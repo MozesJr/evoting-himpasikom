@@ -25,4 +25,10 @@ class UserController extends Controller
 
         return back()->with('success', 'User berhasil diverifikasi');
     }
+
+    public function getUsersJson()
+    {
+        $users = User::orderBy('created_at', 'desc')->get();
+        return response()->json($users);
+    }
 }

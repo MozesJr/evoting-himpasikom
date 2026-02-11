@@ -107,12 +107,20 @@ class VoteController extends Controller
         return view('voting.hasil', compact('candidates'));
     }
 
+    // public function realtime()
+    // {
+    //     $candidates = Candidate::withCount('votes')
+    //         ->orderBy('nomor_urut')
+    //         ->get();
+
+    //     return response()->json($candidates);
+    // }
+
     public function realtime()
     {
-        $candidates = Candidate::withCount('votes')
-            ->orderBy('nomor_urut')
-            ->get();
+        // Mengambil kandidat beserta jumlah suaranya
+        $hasil = Candidate::withCount('votes')->orderBy('nomor_urut', 'asc')->get();
 
-        return response()->json($candidates);
+        return response()->json($hasil);
     }
 }
