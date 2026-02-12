@@ -76,7 +76,7 @@
                             <input id="name" type="text" name="name" value="{{ old('name') }}" required
                                 autofocus
                                 class="w-full bg-[#0f172a] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition duration-200"
-                                placeholder="Contoh: Budi Santoso">
+                                placeholder="Contoh: Mozes Sapari">
                         </div>
 
                         <div class="mt-4">
@@ -84,7 +84,7 @@
                                 Mahasiswa</label>
                             <input id="email" type="email" name="email" value="{{ old('email') }}" required
                                 class="w-full bg-[#0f172a] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition duration-200"
-                                placeholder="nama@mhs.ac.id">
+                                placeholder="mjr@mail.ugm.ac.id">
                         </div>
 
                         <div class="mt-4">
