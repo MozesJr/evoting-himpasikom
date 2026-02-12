@@ -14,18 +14,53 @@
                 <div class="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex">
                     @php
                         $isAdmin = Auth::user()->role === 'admin';
+
                         $navLinks = [
                             [
                                 'name' => 'Dashboard',
                                 'route' => $isAdmin ? 'admin.dashboard' : 'dashboard',
                                 'show' => true,
                             ],
-                            ['name' => 'Voting', 'route' => 'voting.index', 'show' => true],
-                            ['name' => 'Hasil Voting', 'route' => 'voting.hasil', 'show' => $isAdmin],
-                            ['name' => 'Kandidat', 'route' => 'candidates.index', 'show' => $isAdmin],
-                            ['name' => 'Verifikasi User', 'route' => 'admin.users', 'show' => $isAdmin],
-                            ['name' => 'Votes', 'route' => 'admin.votes', 'show' => $isAdmin],
-                            ['name' => 'Settings', 'route' => 'admin.settings', 'show' => $isAdmin],
+                            [
+                                'name' => 'Voting',
+                                'route' => 'voting.index',
+                                'show' => true,
+                            ],
+                            [
+                                'name' => 'Hasil Voting',
+                                'route' => 'voting.hasil',
+                                'show' => $isAdmin,
+                            ],
+                            // [
+                            //     'name' => 'Realtime',
+                            //     'route' => 'voting.realtime',
+                            //     'show' => $isAdmin,
+                            // ],
+                            [
+                                'name' => 'Kandidat',
+                                'route' => 'candidates.index',
+                                'show' => $isAdmin,
+                            ],
+                            [
+                                'name' => 'Verifikasi User',
+                                'route' => 'admin.users',
+                                'show' => $isAdmin,
+                            ],
+                            [
+                                'name' => 'Votes',
+                                'route' => 'admin.votes',
+                                'show' => $isAdmin,
+                            ],
+                            [
+                                'name' => 'Settings',
+                                'route' => 'admin.settings',
+                                'show' => $isAdmin,
+                            ],
+                            // [
+                            //     'name' => 'Ketua',
+                            //     'route' => 'ketua.index',
+                            //     'show' => $isAdmin,
+                            // ],
                         ];
                     @endphp
 
@@ -38,6 +73,7 @@
                         @endif
                     @endforeach
                 </div>
+
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -71,7 +107,7 @@
 
             <div class="-mr-2 flex items-center sm:hidden">
                 <button @click="open = ! open"
-                    class="p-2 rounded-xl text-gray-400 hover:bg-white/5 focus:outline-none transition relative z-[60]">
+                    class="p-2 rounded-xl text-gray-400 hover:bg-white/5 focus:outline-none transition">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -80,46 +116,6 @@
                             stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-            </div>
-        </div>
-    </div>
-
-    <div :class="{ 'block': open, 'hidden': !open }"
-        class="hidden sm:hidden bg-[#0f172a]/95 backdrop-blur-xl border-t border-white/5 shadow-2xl overflow-hidden transition-all duration-300">
-        <div class="pt-2 pb-3 space-y-1 px-4">
-            @foreach ($navLinks as $link)
-                @if ($link['show'])
-                    <x-responsive-nav-link :href="Route::has($link['route']) ? route($link['route']) : '#'" :active="request()->routeIs($link['route'])"
-                        class="block px-4 py-3 rounded-xl text-base font-medium transition duration-150 {{ request()->routeIs($link['route']) ? 'bg-blue-600/10 text-blue-400 border-l-4 border-blue-500' : 'text-gray-400 hover:text-white hover:bg-white/5' }}">
-                        {{ $link['name'] }}
-                    </x-responsive-nav-link>
-                @endif
-            @endforeach
-        </div>
-
-        <div class="pt-4 pb-4 border-t border-white/5 px-4 bg-white/[0.02]">
-            <div class="flex items-center px-4 mb-3">
-                <div class="shrink-0">
-                    <div
-                        class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white uppercase shadow-lg">
-                        {{ substr(Auth::user()->name, 0, 1) }}
-                    </div>
-                </div>
-                <div class="ml-3">
-                    <div class="font-bold text-base text-white">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                </div>
-            </div>
-
-            <div class="space-y-1">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <x-responsive-nav-link :href="route('logout')"
-                        onclick="event.preventDefault(); this.closest('form').submit();"
-                        class="block px-4 py-3 text-red-400 font-bold hover:bg-red-500/10 rounded-xl transition">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
             </div>
         </div>
     </div>

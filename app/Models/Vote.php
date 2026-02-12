@@ -9,7 +9,9 @@ class Vote extends Model
     protected $fillable = [
         'user_id',
         'candidate_id',
-        'waktu_vote'
+        'waktu_vote',
+        'ip_address',
+        'device'
     ];
 
     public function user()
