@@ -8,6 +8,7 @@ use App\Models\Vote;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Setting;
+use Carbon\Carbon;
 
 
 class VoteController extends Controller
@@ -15,20 +16,56 @@ class VoteController extends Controller
     /**
      * Tampilkan halaman voting
      */
+    // public function index()
+    // {
+    //     // ambil semua kandidat
+    //     $candidates = Candidate::orderBy('nomor_urut')->get();
+
+    //     $setting = Setting::first();
+
+    //     if (!$setting->voting_open) {
+    //         return view('voting.closed');
+    //     }
+
+
+    //     $user = Auth::user();
+
+    //     return view('voting.index', compact('candidates', 'user'));
+    // }
+
+
     public function index()
     {
-        // ambil semua kandidat
         $candidates = Candidate::orderBy('nomor_urut')->get();
-
         $setting = Setting::first();
-
-        if (!$setting->voting_open) {
-            return view('voting.closed');
-        }
-
-
         $user = Auth::user();
 
+        // Pastikan zona waktu sama dengan di database (WIB)
+        $now = now()->timezone('Asia/Jakarta');
+
+        $startTime = \Carbon\Carbon::parse($setting->voting_start, 'Asia/Jakarta');
+        $endTime = \Carbon\Carbon::parse($setting->voting_end, 'Asia/Jakarta');
+
+        // DEBUGGING (Hapus baris ini jika sudah jalan):
+        // dd([
+        //    'sekarang' => $now->toDateTimeString(),
+        //    'finish' => $endTime->toDateTimeString(),
+        //    'apakah_sudah_lewat' => $now->gt($endTime)
+        // ]);
+
+        // 1. Cek Belum Mulai
+        if ($setting->voting_open == 0 || $now->lt($startTime)) {
+            $status = 'belum_mulai';
+            return view('voting.closed', compact('status', 'setting'));
+        }
+
+        // 2. Cek Sudah Selesai
+        if ($now->gt($endTime)) {
+            $status = 'sudah_selesai';
+            return view('voting.closed', compact('status', 'setting'));
+        }
+
+        // 3. Bilik Suara Aktif
         return view('voting.index', compact('candidates', 'user'));
     }
 
@@ -122,5 +159,19 @@ class VoteController extends Controller
         $hasil = Candidate::withCount('votes')->orderBy('nomor_urut', 'asc')->get();
 
         return response()->json($hasil);
+    }
+
+    public function status()
+    {
+        // Kamu bisa ambil status dari settings di database
+        // Contoh logic manual:
+        $settings = Setting::first();
+        $status = 'tutup';
+
+        if ($settings->is_active == false && $settings->start_date > now()) {
+            $status = 'belum_mulai';
+        }
+
+        return view('voting.closed', compact('status'));
     }
 }

@@ -106,7 +106,7 @@
                                </span>`;
 
                         const actionButton = !user.verified ?
-                            `<form method="POST" action="/admin/users/approve/${user.id}">
+                            `<form method="POST" action="/admin/users/${user.id}/approve">
                                 @csrf
                                 <button type="submit" class="group flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-bold rounded-xl transition-all shadow-lg shadow-blue-600/20 active:scale-95">
                                     <svg class="w-3 h-3 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
