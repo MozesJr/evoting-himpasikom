@@ -20,6 +20,11 @@ class DashboardController extends Controller
 
         $setting = Setting::first();
 
+        $waktustart = $setting->voting_start;
+        $waktuend = $setting->voting_end;
+
+        // dd($waktuend);
+
         $hasilVoting = Candidate::withCount('votes')
             ->orderByDesc('votes_count')
             ->get();
@@ -31,7 +36,9 @@ class DashboardController extends Controller
             'totalKandidat',
             'totalSuaraMasuk',
             'setting',
-            'hasilVoting'
+            'hasilVoting',
+            'waktustart',
+            'waktuend'
         ));
     }
 }

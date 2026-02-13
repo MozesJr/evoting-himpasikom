@@ -10,6 +10,9 @@ use App\Http\Controllers\Admin\VoteController as AdminVoteController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KetuaController;
 
+use App\Models\Setting;
+// use Illuminate\Support - \Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +29,11 @@ Route::get('/redirect-role', [RedirectController::class, 'index'])->middleware('
 
 // Dashboard Default
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    // Ambil data setting pertama
+    $setting = Setting::first();
+
+    // Kirim ke view
+    return view('dashboard', compact('setting'));
 })->middleware(['auth'])->name('dashboard');
 
 /*

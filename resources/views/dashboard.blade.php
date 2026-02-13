@@ -94,18 +94,27 @@
                     <h3 class="text-white font-bold mb-4 uppercase text-xs tracking-widest text-gray-500">Jadwal
                         Pemilihan</h3>
                     <div class="space-y-4">
+                        {{-- WAKTU MULAI --}}
                         <div class="flex items-start gap-3">
-                            <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5"></div>
+                            <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shadow-[0_0_8px_rgba(59,130,246,0.5)]">
+                            </div>
                             <div>
-                                <p class="text-sm text-white font-medium">Mulai</p>
-                                <p class="text-xs text-gray-500">10 Februari 2026, 08:00 WIB</p>
+                                <p class="text-sm text-white font-medium uppercase tracking-tighter">Waktu Mulai</p>
+                                <p class="text-xs text-gray-400 font-mono">
+                                    {{ \Carbon\Carbon::parse($setting->voting_start)->format('d M Y, H:i') }} WIB
+                                </p>
                             </div>
                         </div>
+
+                        {{-- WAKTU BERAKHIR --}}
                         <div class="flex items-start gap-3">
-                            <div class="w-2 h-2 rounded-full bg-red-500 mt-1.5"></div>
+                            <div class="w-2 h-2 rounded-full bg-red-500 mt-1.5 shadow-[0_0_8px_rgba(239,68,68,0.5)]">
+                            </div>
                             <div>
-                                <p class="text-sm text-white font-medium">Berakhir</p>
-                                <p class="text-xs text-gray-500">12 Februari 2026, 16:00 WIB</p>
+                                <p class="text-sm text-white font-medium uppercase tracking-tighter">Waktu Berakhir</p>
+                                <p class="text-xs text-gray-400 font-mono">
+                                    {{ \Carbon\Carbon::parse($setting->voting_end)->format('d M Y, H:i') }} WIB
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -11,4 +11,9 @@ class Setting extends Model
         'voting_start',
         'voting_end'
     ];
+
+    protected $casts = [
+        'voting_start' => 'datetime',
+        'voting_end' => 'datetime',
+    ];
 }
